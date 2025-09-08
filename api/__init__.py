@@ -25,3 +25,4 @@ def _normalize_text(input_text: str) -> str:
 #Abre el archivo
 work_book = load_workbook(file_path)
 work_sheet = work_book.active   #Hoja activa
+
