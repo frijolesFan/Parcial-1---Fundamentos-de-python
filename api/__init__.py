@@ -26,3 +26,12 @@ def _normalize_text(input_text: str) -> str:
 work_book = load_workbook(file_path)
 work_sheet = work_book.active   #Hoja activa
 
+
+#------------------------------------------------------------------------------
+
+def search_data(search_data: dict) -> list:
+    """
+    Busca datos en el archivo Excel basados en los criterios proporcionados.
+    """
+    # Obtener los encabezados de la hoja de cálculo
+    headers = [cell.value for cell in work_sheet[1]]
