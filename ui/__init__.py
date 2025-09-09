@@ -1,6 +1,7 @@
 # ui/__init__.py
 
 from statistics import median
+import numpy as np
 import api
 
 def _parse_float(val):
@@ -53,9 +54,9 @@ def _show_results_table_and_medians(resultados: list):
         print(" | ".join(val.ljust(width) for val, width in zip(row_vals, column_widths)))
 
     #Calcula medianas de variables edáficas (pH, Fosforo, Potasio)
-    ph_vals = [val for val in (_parse_float(r.get('pH')) for r in resultados) if val is not None]
-    fosforo_vals = [val for val in (_parse_float(r.get('Fosforo')) for r in resultados) if val is not None]
-    potasio_vals = [val for val in (_parse_float(r.get('Potasio')) for r in resultados) if val is not None]
+    ph_vals = [val for val in (_parse_float(r['pH']) for r in resultados) if val is not None]
+    fosforo_vals = [val for val in (_parse_float(r['Fosforo']) for r in resultados) if val is not None]
+    potasio_vals = [val for val in (_parse_float(r['Potasio']) for r in resultados) if val is not None]
 
     def _median_or_none(values):
         try:
@@ -63,9 +64,9 @@ def _show_results_table_and_medians(resultados: list):
         except Exception:
             return None
 
-    m_ph = _median_or_none(ph_vals)
-    m_fosforo = _median_or_none(fosforo_vals)
-    m_potasio = _median_or_none(potasio_vals)
+    m_ph = np.median(ph_vals)
+    m_fosforo = np.median(fosforo_vals)
+    m_potasio = np.median(potasio_vals)
 
     print("\nMedianas de variables edáficas:")
     print(f"  pH: {m_ph:.2f}" if m_ph is not None else "  pH: N/A")
